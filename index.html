@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ORGN Media — Attention · Authority · Ascension</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --pink: #ff6200;
+      --pink-dim: rgba(255, 98, 0, 0.12);
+      --black: #000;
+      --surface: #0d0d0d;
+      --surface-2: #141414;
+      --border: rgba(255,255,255,0.07);
+      --text-muted: #666;
+      --text-secondary: #999;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--black);
+      color: #fff;
+      font-family: 'Space Grotesk', Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── Typography ── */
+    .heading-xl {
+      font-size: clamp(3.5rem, 9vw, 9rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+    }
+    .heading-lg {
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .heading-md {
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+    }
+    .label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s, backdrop-filter 0.3s;
+    }
+    nav.scrolled {
+      border-color: var(--border);
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(20px);
+    }
+    .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--pink);
+      text-shadow: 0 0 10px rgba(255, 98, 0, 0.9), 0 0 28px rgba(255, 98, 0, 0.45);
+    }
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 100px;
+      background: var(--pink);
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      position: relative;
+      overflow: hidden;
+      transition: opacity 0.2s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+      box-shadow:
+        0 0 12px rgba(255,98,0,0.5),
+        0 0 32px rgba(255,98,0,0.22),
+        0 0 64px rgba(255,98,0,0.10);
+      animation: glow-breathe 3s ease-in-out infinite;
+    }
+    @keyframes glow-breathe {
+      0%, 100% {
+        box-shadow:
+          0 0 12px rgba(255,98,0,0.5),
+          0 0 32px rgba(255,98,0,0.22),
+          0 0 64px rgba(255,98,0,0.10);
+      }
+      50% {
+        box-shadow:
+          0 0 20px rgba(255,98,0,0.75),
+          0 0 52px rgba(255,98,0,0.38),
+          0 0 96px rgba(255,98,0,0.18);
+      }
+    }
+    /* Shimmer sweep */
+    .btn-pill::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -80%;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(
+        105deg,
+        transparent 30%,
+        rgba(255,255,255,0.28) 50%,
+        transparent 70%
+      );
+      transform: skewX(-12deg);
+      pointer-events: none;
+    }
+    .btn-pill:hover::before {
+      animation: btn-shimmer 0.55s ease forwards;
+    }
+    @keyframes btn-shimmer {
+      to { left: 130%; }
+    }
+    /* Sparkle icon inside btn-pill */
+    .btn-pill .btn-sparkle {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      animation: sparkle-spin 4s linear infinite;
+    }
+    @keyframes sparkle-spin {
+      0%   { transform: rotate(0deg) scale(1); opacity: 1; }
+      25%  { transform: rotate(15deg) scale(1.15); opacity: 0.85; }
+      50%  { transform: rotate(0deg) scale(1); opacity: 1; }
+      75%  { transform: rotate(-15deg) scale(1.15); opacity: 0.85; }
+      100% { transform: rotate(0deg) scale(1); opacity: 1; }
+    }
+    .btn-pill:hover {
+      opacity: 0.95;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow:
+        0 0 24px rgba(255,98,0,0.8),
+        0 0 56px rgba(255,98,0,0.42),
+        0 0 100px rgba(255,98,0,0.2);
+    }
+    .btn-pill:active {
+      transform: translateY(0) scale(0.97);
+      opacity: 1;
+      box-shadow:
+        0 0 32px rgba(255,98,0,0.9),
+        0 0 72px rgba(255,98,0,0.5);
+    }
+    /* Click burst ring */
+    .btn-pill.btn-clicked::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      border: 2px solid rgba(255,98,0,0.7);
+      animation: glow-ring 0.4s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes glow-ring {
+      from { opacity: 1; transform: scale(1); }
+      to   { opacity: 0; transform: scale(1.18); }
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(255,0,126,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(255,0,178,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 80% at 50% 50%, rgba(20,20,20,0.6) 0%, #000 70%);
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-tagline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .hero-tagline span {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .hero-tagline .dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--pink);
+      flex-shrink: 0;
+    }
+    .hero-title { margin-bottom: 40px; }
+    .hero-title em {
+      font-style: normal;
+      color: var(--pink);
+    }
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .hero-desc {
+      max-width: 380px;
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 16px;
+    }
+    .scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 40px;
+      height: 1px;
+      background: var(--text-muted);
+    }
+
+    /* ── Section base ── */
+    section { padding: 120px 40px; }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 64px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Services ── */
+    #services { background: var(--black); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .service-card {
+      background: var(--black);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .service-card:hover { background: var(--surface); }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--pink);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-number {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--pink);
+      margin-bottom: 32px;
+    }
+    .service-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+    .service-desc {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .service-icon {
+      margin-top: 40px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--pink);
+      font-size: 18px;
+    }
+
+    /* ── Work ── */
+    #work { background: var(--surface); }
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+    .work-item {
+      background: var(--surface-2);
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 9/16;
+      position: relative;
+      cursor: pointer;
+    }
+    .work-item:nth-child(1) { grid-column: span 3; }
+    .work-item:nth-child(2) { grid-column: span 3; }
+    .work-item:nth-child(3) { grid-column: span 3; }
+    .work-item:nth-child(4) { grid-column: span 3; }
+    .work-item:nth-child(5) { grid-column: span 4; }
+    .work-item:nth-child(6) { grid-column: span 4; }
+    .work-item:nth-child(7) { grid-column: span 4; }
+    .work-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .work-item:hover .work-img { transform: scale(1.04); }
+    .work-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .work-item:hover .work-overlay { opacity: 1; }
+    .work-label {
+      position: absolute;
+      bottom: 16px; left: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .work-item:hover .work-label { opacity: 1; transform: translateY(0); }
+    .work-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .tag-short { background: rgba(255,0,126,0.2); color: var(--pink); }
+    .tag-podcast { background: rgba(255,255,255,0.1); color: #fff; }
+    .tag-testimonial { background: rgba(255,255,255,0.07); color: #ccc; }
+
+    /* ── Work rows ── */
+    .work-row-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .work-row-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .work-row-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--pink);
+      flex-shrink: 0;
+    }
+    .scroll-hint-arrow {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.6;
+    }
+    .work-row { margin-bottom: 64px; position: relative; }
+    .work-row:last-child { margin-bottom: 0; }
+
+    /* Scroll track — all rows share this */
+    .scroll-track {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      cursor: grab;
+      padding-bottom: 2px;
+    }
+    .scroll-track::-webkit-scrollbar { display: none; }
+    .scroll-track:active { cursor: grabbing; }
+
+    /* Fade-out right edge hint */
+    .scroll-track-wrap {
+      position: relative;
+    }
+    .scroll-track-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 2px;
+      width: 80px;
+      background: linear-gradient(to right, transparent, var(--surface));
+      pointer-events: none;
+      border-radius: 0 10px 10px 0;
+    }
+
+    /* Vertical 9:16 cards — used for short-form, podcast, testimonials */
+    .video-slot {
+      flex: 0 0 calc(25% - 9px);
+      aspect-ratio: 9/16;
+      background: var(--surface-2);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      scroll-snap-align: start;
+      transition: border-color 0.3s;
+      user-select: none;
+    }
+    .video-slot:hover { border-color: rgba(255,98,0,0.35); }
+    .video-slot video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    /* Placeholder state */
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .video-placeholder .play-ring {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--pink);
+      background: rgba(255,98,0,0.06);
+    }
+    .video-placeholder span {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Unmute button overlay on video slots */
+    .unmute-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      z-index: 10;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      backdrop-filter: blur(4px);
+      padding: 0;
+    }
+    .unmute-btn:hover { background: rgba(255,98,0,0.35); border-color: rgba(255,98,0,0.6); }
+    .unmute-btn:active { transform: scale(0.92); }
+    .unmute-btn svg { width: 14px; height: 14px; }
+    .unmute-btn.is-unmuted { background: rgba(255,98,0,0.25); border-color: rgba(255,98,0,0.5); }
+
+    /* ── Testimonials section ── */
+    #testimonials { background: var(--black); }
+
+    /* Testimonials scroll-track fade matches black bg */
+    #testimonials .scroll-track-wrap::after {
+      background: linear-gradient(to right, transparent, var(--black));
+    }
+
+    @media (max-width: 900px) {
+      .video-slot { flex: 0 0 calc(50% - 6px); }
+    }
+
+    /* ── Process ── */
+    #process { background: var(--black); }
+    .process-list { display: flex; flex-direction: column; }
+
+    /* Word reveal */
+    .process-step-title .word,
+    .process-step-desc .word {
+      display: inline;
+      opacity: 0.12;
+      transition: opacity 0.5s ease;
+    }
+    .process-step-title .word.lit,
+    .process-step-desc .word.lit {
+      opacity: 1;
+    }
+    .process-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: start;
+      gap: 40px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .process-item:hover .process-step-title { color: var(--pink); }
+    .process-num {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding-top: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+    .process-step-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .process-step-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 500px;
+    }
+    .process-tag {
+      margin-top: 4px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    /* ── Stats ── */
+    #stats {
+      background: var(--surface);
+      padding: 80px 40px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .stat-item {
+      background: var(--surface);
+      padding: 48px 40px;
+      transition: background 0.2s;
+    }
+    .stat-item:hover { background: var(--surface-2); }
+    .stat-value {
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-value span { color: var(--pink); }
+    .stat-value .stat-num { color: #fff; }
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ── CTA ── */
+    #cta {
+      background: var(--black);
+      padding: 160px 40px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,0,126,0.07) 0%, transparent 70%);
+    }
+    .cta-content { position: relative; z-index: 2; }
+    .cta-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    .cta-eyebrow .line {
+      width: 32px; height: 1px;
+      background: var(--pink);
+    }
+    .cta-title {
+      font-size: clamp(2.5rem, 6vw, 6rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      margin-bottom: 32px;
+    }
+    .cta-subtitle {
+      color: var(--text-secondary);
+      font-size: 16px;
+      max-width: 440px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+    .btn-cta-lg {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 40px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 100px;
+      background: var(--pink);
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 20px rgba(255, 98, 0, 0.5), 0 0 60px rgba(255, 98, 0, 0.2);
+    }
+    .btn-cta-lg:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 0 32px rgba(255, 98, 0, 0.7), 0 0 80px rgba(255, 98, 0, 0.3);
+    }
+    .btn-cta-lg:active { transform: translateY(0); }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 40px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 100px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--surface);
+      padding: 64px 40px 40px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 64px;
+    }
+    .footer-logo-wrap { max-width: 280px; }
+    .footer-logo {
+      display: inline-flex;
+      align-items: center;
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .footer-tagline {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .footer-links { display: flex; gap: 80px; }
+    .footer-col h5 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 12px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-bottom p { font-size: 12px; color: var(--text-muted); }
+
+    /* ── Ticker ── */
+    .ticker-wrap {
+      overflow: hidden;
+      padding: 24px 0;
+      background: var(--pink);
+      white-space: nowrap;
+    }
+    .ticker-track {
+      display: inline-flex;
+      animation: ticker 18s linear infinite;
+    }
+    .ticker-track span {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff;
+      padding: 0 32px;
+    }
+    .ticker-dot {
+      color: rgba(255,255,255,0.5);
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── Animations ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      section { padding: 80px 20px; }
+      #hero { padding: 0 20px 60px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .work-grid { grid-template-columns: repeat(2, 1fr); }
+      .work-item { grid-column: span 1 !important; aspect-ratio: 4/5; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .footer-top { flex-direction: column; gap: 48px; }
+      .footer-links { flex-direction: column; gap: 40px; }
+      .process-item { grid-template-columns: 50px 1fr; }
+      .process-tag { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo" aria-label="ORGN Media">ORGN
+    </a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#process">Process</a>
+      <a href="#cta">Contact</a>
+    </div>
+    <a href="#cta" class="btn-pill">Let's Talk <span class="btn-sparkle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M3 5h4"/><path d="M19 17v4"/><path d="M17 19h4"/></svg></span></a>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-tagline">
+        <div class="dot"></div>
+        <span>Attention</span>
+        <div class="dot"></div>
+        <span>Authority</span>
+        <div class="dot"></div>
+        <span>Ascension</span>
+      </div>
+      <div class="hero-title heading-xl fade-up">
+        We Make<br/>
+        Founders <em>Impossible</em><br/>
+        to Ignore.
+      </div>
+      <div class="hero-bottom">
+        <p class="hero-desc fade-up">
+          ORGN Media is a full-service content agency built for founders and brands who demand attention. We produce short-form content, podcast clips, and testimonials that convert.
+        </p>
+        <div class="hero-cta fade-up">
+          <a href="#cta" class="btn-pill" style="padding: 14px 28px; font-size: 14px;">Start Your Project <span class="btn-sparkle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M3 5h4"/><path d="M19 17v4"/><path d="M17 19h4"/></svg></span></a>
+          <div class="scroll-hint">
+            <div class="scroll-line"></div>
+            <span>Scroll</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Ticker ── -->
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <span>Short-Form Content</span><span class="ticker-dot">✦</span>
+      <span>Podcast Clips</span><span class="ticker-dot">✦</span>
+      <span>Testimonials</span><span class="ticker-dot">✦</span>
+      <span>Brand Strategy</span><span class="ticker-dot">✦</span>
+      <span>Video Production</span><span class="ticker-dot">✦</span>
+      <span>Content Delivery</span><span class="ticker-dot">✦</span>
+      <!-- duplicate for seamless loop -->
+      <span>Short-Form Content</span><span class="ticker-dot">✦</span>
+      <span>Podcast Clips</span><span class="ticker-dot">✦</span>
+      <span>Testimonials</span><span class="ticker-dot">✦</span>
+      <span>Brand Strategy</span><span class="ticker-dot">✦</span>
+      <span>Video Production</span><span class="ticker-dot">✦</span>
+      <span>Content Delivery</span><span class="ticker-dot">✦</span>
+    </div>
+  </div>
+
+  <!-- ── Services ── -->
+  <section id="services">
+    <div class="section-header fade-up">
+      <div>
+        <p class="label" style="margin-bottom: 12px;">What We Do</p>
+        <h2 class="heading-lg">Our Services</h2>
+      </div>
+      <a href="#cta" class="btn-pill">Work With Us <span class="btn-sparkle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M3 5h4"/><path d="M19 17v4"/><path d="M17 19h4"/></svg></span></a>
+    </div>
+    <div class="services-grid fade-up">
+      <div class="service-card">
+        <div class="service-number">01</div>
+        <h3 class="service-title">Short Form<br/>Content</h3>
+        <p class="service-desc">High-impact vertical videos engineered to stop the scroll. We handle everything — scripting, filming, editing — so your content performs.</p>
+        <div class="service-icon">▶</div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">02</div>
+        <h3 class="service-title">Long Form<br/>Content</h3>
+        <p class="service-desc">Full-length productions that establish authority. We craft cinematic, narrative-driven videos that position you as the definitive voice in your space.</p>
+        <div class="service-icon">◈</div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">03</div>
+        <h3 class="service-title">Podcast<br/>Services</h3>
+        <p class="service-desc">End-to-end podcast production — recording, editing, distribution, and clip extraction. We turn every episode into evergreen content that grows your audience.</p>
+        <div class="service-icon">◉</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Work ── -->
+  <section id="work">
+    <div class="section-header fade-up">
+      <div>
+        <p class="label" style="margin-bottom: 12px;">Selected Work</p>
+        <h2 class="heading-lg">Content That Converts</h2>
+      </div>
+      <span class="label">2024 — 2025</span>
+    </div>
+
+    <!-- Short Form Content row -->
+    <div class="work-row fade-up">
+      <div class="work-row-header">
+        <div class="work-row-label">Short Form Content</div>
+        <div class="scroll-hint-arrow">Scroll <span>→</span></div>
+      </div>
+      <div class="scroll-track-wrap">
+        <div class="scroll-track" id="scroll-short">
+          <div class="video-slot">
+            <video src="videos/short-Memorable-brand.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/short-Charlie-5.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/short-turned-22.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/short-Imp-vs-not-Imp.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/short-you-suck-rn.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/short-embarassment.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/short-people-at-the-end.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/short-Bilaal-2.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/short-progress.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/short-all-in.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/short-Permission.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/short-format-tournament.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Podcast Clips row -->
+    <div class="work-row fade-up">
+      <div class="work-row-header">
+        <div class="work-row-label">Podcast Clips</div>
+        <div class="scroll-hint-arrow">Scroll <span>→</span></div>
+      </div>
+      <div class="scroll-track-wrap">
+        <div class="scroll-track" id="scroll-podcast">
+          <div class="video-slot">
+            <video src="videos/JHS-Reel-1.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/JHS-Reel-2.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/JHS-Reel-4.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/JHS-Alex-1.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/JHS-Alex-2.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/JHS-Alex-3.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/JHS-Brian-Draper.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Testimonials ── -->
+  <section id="testimonials">
+    <div class="section-header fade-up">
+      <div>
+        <p class="label" style="margin-bottom: 12px;">Social Proof</p>
+        <h2 class="heading-lg">Client Testimonials</h2>
+      </div>
+      <span class="label">2024 — 2025</span>
+    </div>
+
+    <div class="work-row fade-up" style="margin-bottom: 0;">
+      <div class="work-row-header">
+        <div class="work-row-label">Client Testimonials</div>
+        <div class="scroll-hint-arrow">Scroll <span>→</span></div>
+      </div>
+      <div class="scroll-track-wrap">
+        <div class="scroll-track" id="scroll-testimonials">
+          <div class="video-slot">
+            <video src="videos/testimonial-James.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/testimonial-Charlie.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/testimonial-Waqas.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <div class="video-slot">
+            <video src="videos/testimonial-Iestyn.mov" autoplay muted loop playsinline></video>
+            <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
+              <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+              <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Stats ── -->
+  <section id="stats" style="padding: 0;">
+    <div class="stats-grid">
+      <div class="stat-item fade-up">
+        <div class="stat-value" data-count="500" data-suffix="+"><span class="stat-num">500</span><span>+</span></div>
+        <div class="stat-label">Videos produced<br/>and delivered</div>
+      </div>
+      <div class="stat-item fade-up">
+        <div class="stat-value" data-count="50" data-suffix="M+"><span class="stat-num">50</span><span>M+</span></div>
+        <div class="stat-label">Total views<br/>across platforms</div>
+      </div>
+      <div class="stat-item fade-up">
+        <div class="stat-value" data-count="80" data-suffix="+"><span class="stat-num">80</span><span>+</span></div>
+        <div class="stat-label">Creators and brands<br/>worked with</div>
+      </div>
+      <div class="stat-item fade-up">
+        <div class="stat-value" data-count="3" data-suffix="×"><span class="stat-num">3</span><span>×</span></div>
+        <div class="stat-label">Average engagement<br/>uplift after 90 days</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Process ── -->
+  <section id="process">
+    <div class="section-header fade-up">
+      <div>
+        <p class="label" style="margin-bottom: 12px;">How We Work</p>
+        <h2 class="heading-lg">Our Process</h2>
+      </div>
+    </div>
+    <div class="process-list">
+      <div class="process-item fade-up">
+        <div class="process-num">01</div>
+        <div>
+          <div class="process-step-title">Onboarding</div>
+          <p class="process-step-desc">We start by deeply understanding your brand, audience, and goals. No templates — every strategy is built from scratch around you.</p>
+        </div>
+        <div class="process-tag">Discovery Call</div>
+      </div>
+      <div class="process-item fade-up">
+        <div class="process-num">02</div>
+        <div>
+          <div class="process-step-title">Research</div>
+          <p class="process-step-desc">We analyse your niche, competitors, and top-performing content to identify the angles and hooks that will grow your audience fastest.</p>
+        </div>
+        <div class="process-tag">Strategy</div>
+      </div>
+      <div class="process-item fade-up">
+        <div class="process-num">03</div>
+        <div>
+          <div class="process-step-title">Scriptwriting</div>
+          <p class="process-step-desc">Our writers craft hooks that stop the scroll and narratives that hold attention from first frame to last. Every word earns its place.</p>
+        </div>
+        <div class="process-tag">Content</div>
+      </div>
+      <div class="process-item fade-up">
+        <div class="process-num">04</div>
+        <div>
+          <div class="process-step-title">Filming</div>
+          <p class="process-step-desc">Professional production, wherever you are. We direct remotely or on-location to capture footage that looks cinematic on any screen.</p>
+        </div>
+        <div class="process-tag">Production</div>
+      </div>
+      <div class="process-item fade-up">
+        <div class="process-num">05</div>
+        <div>
+          <div class="process-step-title">Editing & Post-Production</div>
+          <p class="process-step-desc">Precision editing, motion graphics, captions, and sound design. We turn raw footage into polished content built for performance.</p>
+        </div>
+        <div class="process-tag">Post</div>
+      </div>
+      <div class="process-item fade-up" style="border-bottom: none;">
+        <div class="process-num">06</div>
+        <div>
+          <div class="process-step-title">Content Delivery</div>
+          <p class="process-step-desc">Your content arrives on schedule, every time. Organised, formatted, and ready to publish with platform-specific optimisations baked in.</p>
+        </div>
+        <div class="process-tag">Delivery</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section id="cta">
+    <div class="cta-bg"></div>
+    <div class="cta-content">
+      <div class="cta-eyebrow fade-up">
+        <div class="line"></div>
+        <span class="label" style="color: var(--pink);">Ready to grow?</span>
+        <div class="line"></div>
+      </div>
+      <h2 class="cta-title fade-up">
+        Let's Build<br/>
+        Something<br/>
+        <span style="color: var(--pink);">Unmissable.</span>
+      </h2>
+      <p class="cta-subtitle fade-up">Join the founders and brands using ORGN Media to build authority, command attention, and ascend.</p>
+      <div class="fade-up" style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="mailto:hello@orgn.media" class="btn-cta-lg">Start a Project ↗</a>
+        <a href="#work" class="btn-outline">View Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-logo-wrap">
+        <div class="footer-logo">ORGN</div>
+        <p class="footer-tagline">Attention · Authority · Ascension<br/>Full-service content agency for creators and brands.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h5>Services</h5>
+          <a href="#services">Short Form Content</a>
+          <a href="#services">Long Form Content</a>
+          <a href="#services">Podcast Services</a>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <a href="#work">Our Work</a>
+          <a href="#process">Process</a>
+          <a href="#cta">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h5>Social</h5>
+          <a href="#">Instagram</a>
+          <a href="#">TikTok</a>
+          <a href="#">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ORGN Media. All rights reserved.</p>
+      <p style="color: var(--text-muted);">hello@orgn.media</p>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Drag-to-scroll on all scroll tracks
+    document.querySelectorAll('.scroll-track').forEach(track => {
+      let isDown = false, startX, scrollLeft;
+      track.addEventListener('mousedown', e => {
+        isDown = true;
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+      });
+      track.addEventListener('mouseleave', () => { isDown = false; });
+      track.addEventListener('mouseup', () => { isDown = false; });
+      track.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        track.scrollLeft = scrollLeft - (x - startX) * 1.4;
+      });
+    });
+
+    // Intersection observer for fade-up
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Process section — scroll-driven word reveal
+    (function() {
+      // Split text into word spans
+      document.querySelectorAll('.process-step-title, .process-step-desc').forEach(el => {
+        el.innerHTML = el.textContent
+          .split(' ')
+          .map(w => `<span class="word">${w}</span>`)
+          .join(' ');
+      });
+
+      const items = Array.from(document.querySelectorAll('.process-item'));
+
+      function revealWords() {
+        items.forEach(item => {
+          const rect = item.getBoundingClientRect();
+          const vh = window.innerHeight;
+
+          // How far the item has scrolled into view: 0 = top edge at bottom of screen, 1 = bottom edge at top
+          const progress = Math.min(Math.max((vh - rect.top) / (vh * 0.65), 0), 1);
+
+          const words = Array.from(item.querySelectorAll('.word'));
+          const litCount = Math.round(progress * words.length);
+          words.forEach((w, i) => {
+            w.classList.toggle('lit', i < litCount);
+          });
+        });
+      }
+
+      window.addEventListener('scroll', revealWords, { passive: true });
+      revealWords(); // run once on load in case already in view
+    })();
+
+    // Stat counter animation
+    (function() {
+      const easeOut = t => 1 - Math.pow(1 - t, 3);
+      const DURATION = 900; // ms
+
+      function animateCounter(el) {
+        const target = +el.dataset.count;
+        const numEl = el.querySelector('.stat-num');
+        if (!numEl || el.dataset.animated) return;
+        el.dataset.animated = '1';
+        const start = performance.now();
+        function tick(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / DURATION, 1);
+          const value = Math.round(easeOut(progress) * target);
+          numEl.textContent = value;
+          if (progress < 1) requestAnimationFrame(tick);
+          else numEl.textContent = target;
+        }
+        requestAnimationFrame(tick);
+      }
+
+      const statsObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.querySelectorAll('.stat-value[data-count]').forEach((el, i) => {
+            setTimeout(() => animateCounter(el), i * 120);
+          });
+          statsObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.3 });
+
+      const statsSection = document.getElementById('stats');
+      if (statsSection) statsObserver.observe(statsSection);
+    })();
+
+    // Glow button click burst
+    document.querySelectorAll('.btn-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.remove('btn-clicked');
+        void btn.offsetWidth; // reflow to restart animation
+        btn.classList.add('btn-clicked');
+        btn.addEventListener('animationend', () => btn.classList.remove('btn-clicked'), { once: true });
+      });
+    });
+
+    function toggleMute(btn) {
+      const video = btn.closest('.video-slot').querySelector('video');
+      video.muted = !video.muted;
+      btn.classList.toggle('is-unmuted', !video.muted);
+      btn.querySelector('.icon-muted').style.display = video.muted ? '' : 'none';
+      btn.querySelector('.icon-unmuted').style.display = video.muted ? 'none' : '';
+    }
+  </script>
+
+</body>
+</html>
