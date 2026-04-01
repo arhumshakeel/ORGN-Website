@@ -971,7 +971,7 @@
       <div class="scroll-track-wrap">
         <div class="scroll-track" id="scroll-short">
           <div class="video-slot">
-            <video data-src="https://vz-e903b0aa-fdb.b-cdn.net/fd925d8b-3c5c-43f0-a693-2e76ab565285/playlist.m3u8" autoplay muted loop playsinline></video>
+            <video data-src="https://vz-e903b0aa-fdb.b-cdn.net/fd925d8b-3c5c-43f0-a693-2e76ab565285/playlist.m3u8" autoplay muted loop playsinline preload="auto"></video>
             <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
               <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
               <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
@@ -1074,7 +1074,7 @@
       <div class="scroll-track-wrap">
         <div class="scroll-track" id="scroll-podcast">
           <div class="video-slot">
-            <video data-src="https://vz-e903b0aa-fdb.b-cdn.net/70e91546-41e1-4b05-8a5e-5c5d65f7cc42/playlist.m3u8" autoplay muted loop playsinline></video>
+            <video data-src="https://vz-e903b0aa-fdb.b-cdn.net/70e91546-41e1-4b05-8a5e-5c5d65f7cc42/playlist.m3u8" autoplay muted loop playsinline preload="auto"></video>
             <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
               <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
               <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
@@ -1159,7 +1159,7 @@
       <div class="scroll-track-wrap">
         <div class="scroll-track" id="scroll-testimonials">
           <div class="video-slot">
-            <video data-src="https://vz-e903b0aa-fdb.b-cdn.net/f195d21a-6c14-4f51-b84b-0f625d51ec2f/playlist.m3u8" autoplay muted loop playsinline></video>
+            <video data-src="https://vz-e903b0aa-fdb.b-cdn.net/f195d21a-6c14-4f51-b84b-0f625d51ec2f/playlist.m3u8" autoplay muted loop playsinline preload="auto"></video>
             <button class="unmute-btn" onclick="toggleMute(this)" aria-label="Toggle audio">
               <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
               <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
@@ -1464,8 +1464,8 @@
       }
       if (typeof Hls !== 'undefined' && Hls.isSupported()) {
         const hls = new Hls({
-          startLevel: 2,           // start at a mid-high quality level
-          capLevelToPlayerSize: true,
+          startLevel: 999,         // start at highest available quality
+          capLevelToPlayerSize: false,
           abrEwmaFastLive: 2.0,   // adapt quality faster
           abrEwmaSlowLive: 5.0,
         });
