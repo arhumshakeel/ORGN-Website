@@ -1462,14 +1462,23 @@
     const hlsInstances = new WeakMap();
 
     function initHLS(video) {
-      if (hlsInstances.has(video)) return;
       const src = video.dataset.src;
       if (!src) return;
+      // Already initialized — just resume
+      if (hlsInstances.has(video)) {
+        video.play().catch(() => {});
+        return;
+      }
       if (typeof Hls !== 'undefined' && Hls.isSupported()) {
-        const hls = new Hls({ autoStartLoad: true, startLevel: -1, maxBufferLength: 15 });
+        const hls = new Hls({
+          startLevel: 2,           // start at a mid-high quality level
+          capLevelToPlayerSize: true,
+          abrEwmaFastLive: 2.0,   // adapt quality faster
+          abrEwmaSlowLive: 5.0,
+        });
         hls.loadSource(src);
         hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}); });
+        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(() => {}));
         hlsInstances.set(video, hls);
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = src;
@@ -1478,17 +1487,17 @@
       }
     }
 
+    // Use larger horizontal rootMargin so videos pre-load just before swiping to them
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const video = entry.target;
         if (entry.isIntersecting) {
           initHLS(video);
-          video.play().catch(() => {});
         } else {
           video.pause();
         }
       });
-    }, { rootMargin: '100px' });
+    }, { rootMargin: '100px 300px 100px 300px' });
 
     document.querySelectorAll('video[data-src]').forEach(video => {
       videoObserver.observe(video);
