@@ -1458,18 +1458,40 @@
       btn.querySelector('.icon-unmuted').style.display = video.muted ? 'none' : '';
     }
 
-    // HLS.js init for Bunny Stream videos
-    document.querySelectorAll('video[data-src]').forEach(video => {
+    // HLS.js init — lazy load only when video is visible
+    const hlsInstances = new WeakMap();
+
+    function initHLS(video) {
+      if (hlsInstances.has(video)) return;
       const src = video.dataset.src;
+      if (!src) return;
       if (typeof Hls !== 'undefined' && Hls.isSupported()) {
-        const hls = new Hls({ autoStartLoad: true, startLevel: -1 });
+        const hls = new Hls({ autoStartLoad: true, startLevel: -1, maxBufferLength: 15 });
         hls.loadSource(src);
         hls.attachMedia(video);
         hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}); });
+        hlsInstances.set(video, hls);
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = src;
         video.play().catch(() => {});
+        hlsInstances.set(video, true);
       }
+    }
+
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const video = entry.target;
+        if (entry.isIntersecting) {
+          initHLS(video);
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { rootMargin: '100px' });
+
+    document.querySelectorAll('video[data-src]').forEach(video => {
+      videoObserver.observe(video);
     });
   </script>
 
